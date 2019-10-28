@@ -551,26 +551,26 @@ def startStream(couch, api):
 
 if __name__ == "__main__":
 
-    consumer_key = "UPo671bZpYyTpi0Iy6gdkxs0e"
-    consumer_secret = "QVA5YVNJFxe1Wr393eR9Ow8Pnno8hGhilcxC8CTokk3Rbdm4pe"
-    access_token = "1156588481197613056-ZM2T5SnCDqe50GGGfsN3kVzhJcU2jw"
-    access_token_secret = "D6GavezgylIQ2JnDmk8s1yY91qJzHK2PcY0abmm3x8N45"
+    consumer_key = "hiden"
+    consumer_secret = "hiden"
+    access_token = "hiden-hiden"
+    access_token_secret = "hiden"
 
-    ck1 = '9g47vtbaoLrL6UdZpalP3wziI'
-    cs1 = 'It8TB4S5WpcZTem8eK1a3yh3MuW49LIJgQcUT1E8VfMbO0JdOJ'
-    at1 = '1127480596337266688-5rBAkBZS5u5nQWq9JrhNeYMVFDt7ro'
-    as1 = '8cYbgEQUvcFdesxpiojDVp2ZqP9UPqnzDiSF2KjX7wGJ5'
+    ck1 = 'hiden'
+    cs1 = 'hiden'
+    at1 = 'hiden-hiden'
+    as1 = 'hiden'
 
 
-    ck2 = "oFY1p72UPiLol61ITagJEvEcE"
-    cs2 = "jJJRjLn747wF1MNsMGA8YExx9IjqRvXeSpmJuAHik43cCREz6a"
-    at2 = "1121229845524959233-0VCTkzW11H4ALmEPFHAyFoVzUk0JBL"
-    as2 = "WKTJT16jfijSvuRGFneHHbSdkCi35bQlXnYfWjPJ72QBL"
+    ck2 = "hiden"
+    cs2 = "hiden"
+    at2 = "hiden-hiden"
+    as2 = "hiden"
 
-    ck3 = 'A5KRagrcPWbwUF7UkguySO5au'
-    cs3 = 'yfKVPUWHrrtVmwvBzrGecZvBvISQwZ48xNkgvfweN8dYt3lmES'
-    at3 = '1126754709421715458-Ttxz0zua58zI9EIAAVEuXgmX6c0m2F'
-    as3 = 'PHQ1CZBLPP5xHNHr8Uvt0mLpzUrgoqojDJcc2Z6j5tHJi'
+    ck3 = 'hiden'
+    cs3 = 'hiden'
+    at3 = 'hiden-Ttxz0zua58zI9EIAAVEuXgmX6c0m2F'
+    as3 = 'hiden'
 
     api0 = tweet_api(consumer_key, consumer_secret, access_token, access_token_secret).api
     api1 = tweet_api(ck1,cs1,at1,as1).api
