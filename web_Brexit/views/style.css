@@ -1,0 +1,116 @@
+body{
+    background-image: url("background.jpeg");
+}
+
+h1{
+    font-size: 42px;
+    color: black; 
+    margin-left: 25%;
+}
+
+h2{
+    font-style:oblique;
+    font-size: 32px;
+    margin-top: 200px;
+    margin-left: 16%;
+    color: black; 
+}
+
+h3{
+    font-size: 22px;
+    margin-top: 80px;
+    margin-left: 33%;
+}
+
+#total_trend {
+    width: 50%;
+    height: 400px;
+    margin: 80px auto
+}
+
+#location_situation_2016 {
+    min-width: 310px;
+    max-width: 800px;
+    height: 1500px;
+    margin: 80px auto
+}
+
+#location_situation_2017 {
+    min-width: 310px;
+    max-width: 800px;
+    height: 1500px;
+    margin: 80px auto
+}
+
+#location_situation_2018 {
+    min-width: 310px;
+    max-width: 800px;
+    height: 1500px;
+    margin: 80px auto
+}
+
+#location_situation_2019 {
+    min-width: 310px;
+    max-width: 800px;
+    height: 1500px;
+    margin: 80px auto
+}
+
+#map_sup_2016 {
+    height: 80%;
+    width: 50%;
+    margin: 20px auto;
+}
+
+#map_sup_2017 {
+    height: 80%;
+    width: 50%;
+    margin: 20px auto;
+}
+
+#map_sup_2018 {
+    height: 80%;
+    width: 50%;
+    margin: 20px auto;
+}
+
+
+#map_sup_2019 {
+    height: 80%;
+    width: 50%;
+    margin: 20px auto;
+}
+
+#map_ops_2016 {
+    height: 80%;
+    width: 50%;
+    margin: 20px auto;
+}
+
+#map_ops_2017 {
+    height: 80%;
+    width: 50%;
+    margin: 20px auto;
+}
+
+#map_ops_2018 {
+    height: 80%;
+    width: 50%;
+    margin: 20px auto;
+}
+
+
+#map_ops_2019 {
+    height: 80%;
+    width: 50%;
+    margin: 20px auto;
+}
+/* Optional: Makes the sample page fill the window. */
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
