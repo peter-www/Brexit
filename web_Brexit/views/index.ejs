@@ -10,7 +10,7 @@
     <script src="https://code.highcharts.com/modules/series-label.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=  "YOUR_KEY"   &libraries=visualization&callback=initMap">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAg-BWXjA7iBk1zXoMeoWdS9cwdagqmPmM&libraries=visualization&callback=initMap">
     </script>
 </head>
 
@@ -332,12 +332,18 @@
     Highcharts.chart('total_trend', {
 
         title: {
-            text: 'Britsh #Brexit Twitter Users Quanlity From 2016 To 2019 '
+            text: 'Quantity of #Brexit Twitter Users in British From 2016 To 2019',
+            style: {"font-family": "Times New Roman", fontWeight: 'bold'}
         },
 
         yAxis: {
             title: {
-                text: 'Semtiment change'
+                text: 'Population'
+            }
+        },
+        xAxis: {
+            title: {
+                text: 'Year'
             }
         },
         legend: {
@@ -356,10 +362,10 @@
         },
 
         series: [{
-            name: 'Support',
+            name: 'Positive',
             data: positive_total
         }, {
-            name: 'Oppose',
+            name: 'Negative',
             data: negative_total
         }],
 
@@ -394,7 +400,8 @@
             type: 'bar'
         },
         title: {
-            text: '#Brexit Twitter Users of each major city in Britsh at 2016'
+            text: '#Brexit Twitter Users of each major city in British at 2016',
+            style: {"font-family": "Times New Roman", fontWeight: 'bold'}
         },
         xAxis: {
             categories: majorCities,
@@ -436,12 +443,12 @@
 
 
         series: [{
-                name: 'Support at 2016',
+                name: 'Positive',
                 data: sup_2016
             },
 
             {
-                name: 'Oppose at 2016',
+                name: 'Negative',
                 data: ops_2016
             }
         ]
@@ -457,7 +464,8 @@
             type: 'bar'
         },
         title: {
-            text: '#Brexit Twitter Users of each major city in Britsh at 2017'
+            text: '#Brexit Twitter Users of each major city in British at 2017',
+            style: {"font-family": "Times New Roman", fontWeight: 'bold'}
         },
         xAxis: {
             categories: majorCities,
@@ -500,12 +508,12 @@
 
         series: [
             {
-                name: 'Support at 2017',
+                name: 'Positive',
                 data: sup_2017
             },
 
             {
-                name: 'Oppose at 2017',
+                name: 'Negative',
                 data: ops_2017
             },
         ]
@@ -522,7 +530,8 @@
             type: 'bar'
         },
         title: {
-            text: '#Brexit Twitter Users of each major city in Britsh at 2018'
+            text: '#Brexit Twitter Users of each major city in British at 2018',
+            style: {"font-family": "Times New Roman", fontWeight: 'bold'}
         },
         xAxis: {
             categories: majorCities,
@@ -565,12 +574,12 @@
 
         series: [
             {
-                name: 'Support at 2018',
+                name: 'Positive',
                 data: sup_2018
             },
 
             {
-                name: 'Oppose at 2018',
+                name: 'Negative',
                 data: ops_2018
             }
         ]
@@ -587,7 +596,8 @@
             type: 'bar'
         },
         title: {
-            text: '#Brexit Twitter Users of each major city in Britsh at 2019'
+            text: '#Brexit Twitter Users of each major city in British at 2019',
+            style: {"font-family": "Times New Roman", fontWeight: 'bold'}
         },
         xAxis: {
             categories: majorCities,
@@ -630,11 +640,11 @@
 
         series: [
             {
-                name: 'Support at 2019',
+                name: 'Positive',
                 data: sup_2019
             },
             {
-                name: 'Oppose at 2019',
+                name: 'Negative',
                 data: ops_2019
             }
         ]
