@@ -66,13 +66,6 @@ app.get('/',function(req, resp){
                 location_positive_2016[key] += 1;
             };
 
-            key = account.value.location
-            if (location_positive_2016[key] == undefined){
-                location_positive_2016[key] = 1;
-            }else{
-                location_positive_2016[key] += 1;
-            };
-
         })
 
         // ---- 2017 p
