@@ -10,7 +10,8 @@
     <script src="https://code.highcharts.com/modules/series-label.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key= "Your Key" &libraries=visualization&callback=initMap">
+	<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAg-BWXjA7iBk1zXoMeoWdS9cwdagqmPmM&libraries=visualization&callback=initMap">
     </script>
 </head>
 
@@ -20,6 +21,7 @@
     <h1> DATA VISUALIZATION: BREXIT </h1>
     <h2> Overall: </h2>
     <div id="total_trend"> </div>
+    <div id="pie_chart"></div>
 
     <h2> 2019: </h2>
     <h3> Distribution of Positive Twitter Users in the UK at 2019 </h3>
@@ -71,6 +73,10 @@
     var total_ops_2018 = negative["ops_2018"];
     var total_ops_2019 = negative["ops_2019"];
 
+    var sum = total_sup_2019 + total_ops_2019;
+    var leave = total_sup_2019 / sum;
+    var remain = total_ops_2019 / sum;
+
     var positive_total = []
     positive_total.push(total_sup_2016, total_sup_2017, total_sup_2018, total_sup_2019);
     console.log(positive_total)
@@ -80,7 +86,8 @@
 
     var city_to_LL = {'York, North Yorkshire': ['53.958332', '-1.080278'], 'Worcester, Worcestershire': ['52.192001', '-2.220000'], 'Winchester, Hampshire': ['51.063202', '-1.308000'], 'Wells, South West England': ['51.209000', '-2.647000'], 'Wakefield, West Yorkshire': ['53.680000', '-1.490000'], 'Truro, Cornwall': ['50.259998', '-5.051000'], 'Sunderland, North East': ['54.906101', '-1.381130'], 'Sheffield, South Yorkshire': ['53.383331', '-1.466667'], 'Salford, North West': ['53.483002', '-2.293100'], 'St. Davids, Wales': ['51.882000', '-5.269000'], 'St.Albans, Hertfordshire': ['51.755001', '-0.336000'], 'Ripon, North Yorkshire': ['54.138000', '-1.524000'], 'Portsmouth, Hampshire': ['50.805832', '-1.087222'], 'Perth, Scotland': ['56.396999', '-3.437000'], 'Nottingham': ['52.950001', '-1.150000'], 'Newry, Northern Ireland': ['54.175999', '-6.349000'], 'Newcastle upon Tyne, North East England': ['54.966667', '-1.600000'], 'Liverpool, Merseyside': ['53.400002', '-2.983333'], 'Lincoln, Lincolnshire': ['53.234444', '-0.538611'], 'Lichfield, Staffordshire': ['52.683498', '-1.826530'], 'Leicester, the East Midlands': ['52.633331', '-1.133333'], 'Lancaster, Lancashire': ['54.047001', '-2.801000'], 'Hereford, Herefordshire': ['52.056499', '-2.716000'], 'Gloucester, Gloucestershire': ['51.864445', '-2.244444'], 'Glasgow, Scotland': ['55.860916', '-4.251433'], 'Exeter': ['50.716667', '-3.533333'], 'Ely, Cambridgeshire': ['52.398056', '0.262222'], 'Durham': ['54.776100', '-1.573300'], 'Dundee, Scotland': ['56.462002', '-2.970700'], 'Derry, Northern Ireland': ['54.995800', '-7.307400'], 'Derby, Derbyshire': ['52.916668', '-1.466667'], 'Coventry, West Midlands': ['52.408054', '-1.510556'], 'Chichester, West Sussex': ['50.836498', '-0.779200'], 'Chester, Chesire': ['53.189999', '-2.890000'], 'Chelmsford, Essex': ['51.736099', '0.479800'], 'Carlisle, North West': ['54.890999', '-2.944000'], 'Canterbury, Kent': ['51.279999', '1.080000'], 'Cambridge, Cambridgeshire': ['52.205276', '0.119167'], 'Brighton & Hove, East Sussex': ['50.827778', '-0.152778'], 'Bradford, West Yorkshire': ['53.799999', '-1.750000'], 'Bath, Somerset': ['51.380001', '-2.360000'], 'Peterborough, Cambridgeshire': ['52.573921', '-0.250830'], 'Elgin, Scotland': ['57.653484', '-3.335724'], 'Stoke-on-Trent, Staffordshire': ['53.002666', '-2.179404'], 'Solihull, Birmingham': ['52.412811', '-1.778197'], 'Cardiff, Cardiff county': ['51.481583', '-3.179090'], 'Eastbourne, East Sussex': ['50.768036', '0.290472'], 'Oxford, Oxfordshire': ['51.752022', '-1.257677'], 'London': ['51.509865', '-0.118092'], 'Swindon, Swindon': ['51.568535', '-1.772232']}
 
-    var majorCities = ['York, North Yorkshire', 'Worcester, Worcestershire', 'Winchester, Hampshire', 'Wells, South West England', 'Wakefield, West Yorkshire', 'Truro, Cornwall', 'Sunderland, North East', 'Sheffield, South Yorkshire', 'Salford, North West', 'St. Davids, Wales', 'St.Albans, Hertfordshire', 'Ripon, North Yorkshire', 'Portsmouth, Hampshire', 'Perth, Scotland', 'Nottingham', 'Newry, Northern Ireland', 'Newcastle upon Tyne, North East England', 'Liverpool, Merseyside', 'Lincoln, Lincolnshire', 'Lichfield, Staffordshire', 'Leicester, the East Midlands', 'Lancaster, Lancashire', 'Hereford, Herefordshire', 'Gloucester, Gloucestershire', 'Glasgow, Scotland', 'Exeter', 'Ely, Cambridgeshire', 'Durham', 'Dundee, Scotland', 'Derry, Northern Ireland', 'Derby, Derbyshire', 'Coventry, West Midlands', 'Chichester, West Sussex', 'Chester, Chesire', 'Chelmsford, Essex', 'Carlisle, North West', 'Canterbury, Kent', 'Cambridge, Cambridgeshire', 'Brighton & Hove, East Sussex', 'Bradford, West Yorkshire', 'Bath, Somerset', 'Peterborough, Cambridgeshire', 'Elgin, Scotland', 'Stoke-on-Trent, Staffordshire', 'Solihull, Birmingham', 'Cardiff, Cardiff county', 'Eastbourne, East Sussex', 'Oxford, Oxfordshire', 'London', 'Swindon, Swindon'];
+    // var majorCities = ['York, North Yorkshire', 'Worcester, Worcestershire', 'Winchester, Hampshire', 'Wells, South West England', 'Wakefield, West Yorkshire', 'Truro, Cornwall', 'Sunderland, North East', 'Sheffield, South Yorkshire', 'Salford, North West', 'St. Davids, Wales', 'St.Albans, Hertfordshire', 'Ripon, North Yorkshire', 'Portsmouth, Hampshire', 'Perth, Scotland', 'Nottingham', 'Newry, Northern Ireland', 'Newcastle upon Tyne, North East England', 'Liverpool, Merseyside', 'Lincoln, Lincolnshire', 'Lichfield, Staffordshire', 'Leicester, the East Midlands', 'Lancaster, Lancashire', 'Hereford, Herefordshire', 'Gloucester, Gloucestershire', 'Glasgow, Scotland', 'Exeter', 'Ely, Cambridgeshire', 'Durham', 'Dundee, Scotland', 'Derry, Northern Ireland', 'Derby, Derbyshire', 'Coventry, West Midlands', 'Chichester, West Sussex', 'Chester, Chesire', 'Chelmsford, Essex', 'Carlisle, North West', 'Canterbury, Kent', 'Cambridge, Cambridgeshire', 'Brighton & Hove, East Sussex', 'Bradford, West Yorkshire', 'Bath, Somerset', 'Peterborough, Cambridgeshire', 'Elgin, Scotland', 'Stoke-on-Trent, Staffordshire', 'Solihull, Birmingham', 'Cardiff, Cardiff county', 'Eastbourne, East Sussex', 'Oxford, Oxfordshire', 'London', 'Swindon, Swindon'];
+    var majorCities = ['Worcester, Worcestershire', 'Winchester, Hampshire', 'Wells, South West England', 'Wakefield, West Yorkshire', 'Truro, Cornwall', 'Sunderland, North East', 'Sheffield, South Yorkshire', 'Salford, North West', 'St. Davids, Wales', 'St.Albans, Hertfordshire', 'Ripon, North Yorkshire', 'Portsmouth, Hampshire', 'Perth, Scotland', 'Nottingham', 'Newry, Northern Ireland', 'Newcastle upon Tyne, North East England', 'Liverpool, Merseyside', 'Lincoln, Lincolnshire', 'Lichfield, Staffordshire', 'Leicester, the East Midlands', 'Lancaster, Lancashire', 'Hereford, Herefordshire', 'Gloucester, Gloucestershire', 'Glasgow, Scotland', 'Exeter', 'Ely, Cambridgeshire', 'Durham', 'Dundee, Scotland', 'Derry, Northern Ireland', 'Derby, Derbyshire', 'Coventry, West Midlands', 'Chichester, West Sussex', 'Chester, Chesire', 'Chelmsford, Essex', 'Carlisle, North West', 'Canterbury, Kent', 'Cambridge, Cambridgeshire', 'Brighton & Hove, East Sussex', 'Bradford, West Yorkshire', 'Bath, Somerset', 'Peterborough, Cambridgeshire', 'Elgin, Scotland', 'Stoke-on-Trent, Staffordshire', 'Solihull, Birmingham', 'Cardiff, Cardiff county', 'Eastbourne, East Sussex', 'Oxford, Oxfordshire', 'London', 'Swindon, Swindon'];
 
 
     var positive_location = <%- result.location_positive %>;
@@ -385,6 +392,53 @@
         }
 
     });
+
+
+    Highcharts.chart('pie_chart', {
+	    chart: {
+	        type: 'pie',
+	        options3d: {
+	            enabled: true,
+	            alpha: 45,
+	            beta: 0
+	        }
+	    },
+	    title: {
+	        text: 'British Twitter users attitude to Brexit',
+	        style: {"font-family": "Times New Roman", fontWeight: 'bold'}
+	    },
+	    tooltip: {
+	        pointFormat: '<b>{point.percentage:.5f}%</b>'
+	    },
+	    plotOptions: {
+	        pie: {
+	            allowPointSelect: true,
+	            cursor: 'pointer',
+	            depth: 35,
+	            dataLabels: {
+	                enabled: true,
+	                format: '{point.name}'
+	            }
+	        }
+	    },
+	    series: [{
+	        type: 'pie',
+	        data: [
+	            {
+	            	name: 'Positive: ' + (100*leave).toFixed(2) + '%', 
+		            y: leave,
+		        	color: "#EC6E2F"
+		        },
+
+	            {
+	            	name: 'negative: ' + (100*remain).toFixed(2) + '%', 
+		            y: remain,
+		        	color: "#69B0AC"
+		        }
+	        ]
+
+	    }]
+	});
 
 
 
