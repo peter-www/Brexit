@@ -16,3 +16,4 @@ web_Brexit: scripts for maintain website for data visualization.
 py_Brexit: scipts for fetching twitter users/ create views for couchDB.
 
 note: account and password are removed for confidential purpose.
+      and ngrok is not in github. it required install and indentifcation in terminal 
