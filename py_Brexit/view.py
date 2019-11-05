@@ -3,6 +3,7 @@ import os
 import re
 
 
+# Javascript code used to create Views in CouchDB0
 view_ops = {
     "Ops2019": {
       "map": "function (doc) {\n  if (doc.year_2019 == -1){\n    emit(doc._id, {location: doc.location, latitude: doc.latitude, longitude:doc.longitude});\n    }\n}\n"
@@ -18,7 +19,7 @@ view_ops = {
     }
 }
 
-
+# Javascript code used to create Views in CouchDB0
 view_sup = {
    "Sup2019": {
       "map": "function (doc) { if (doc.year_2019 == 1) {\n    emit(doc._id, {location: doc.location, latitude: doc.latitude, longitude:doc.longitude});\n  }\n}"
@@ -37,14 +38,12 @@ view_sup = {
 
 def create_view (db, design_name,  view):
 
-
     # Design Doc
     design_doc = {
         '_id': '_design/'+design_name,
         'views':  view,
         "language": "javascript"
     }
- 
 
     try:
         db.save(design_doc)
