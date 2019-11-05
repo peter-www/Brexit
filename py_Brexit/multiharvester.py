@@ -13,6 +13,8 @@ from textblob import TextBlob
 import threading
 import couchdb
 
+### ---- globle values --- ###
+
 date_start = datetime.datetime(2016, 6, 23, 0, 0, 0)
 date_2016 = datetime.datetime(2016, 12, 31, 0, 0, 0)
 date_2017 = datetime.datetime(2017, 12, 31, 0, 0, 0)
@@ -20,16 +22,6 @@ date_2018 = datetime.datetime(2018, 12, 31, 0, 0, 0)
 date_2019 = datetime.datetime(2019, 10, 30, 0, 0, 0)
 
 keywords = ["#Brexit","Brexit"]
-
-
-
-class tweet_api():
-    
-    def __init__(self, consumer_key, consumer_secret, access_token, access_token_secret):
-        self.auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-        self.auth.set_access_token(access_token, access_token_secret)
-        self.api = tweepy.API(self.auth, wait_on_rate_limit=True)
-
 
 UK_city = ['York, North Yorkshire',
  'Worcester, Worcestershire',
@@ -133,20 +125,6 @@ UK_City = [['york', 'north yorkshire'],
  ['london'],
  ['swindon', 'swindon']]
 
-def check_location(location):
-    if not location:
-        return None
-    index = None
-    i = 0
-    words = location.split(", ")
-    for city in UK_City:
-        for word in words:
-            if word.lower() in city:
-                index = i
-        i += 1
-    return index
-
-
 Latitude_Longitude =[
  ('53.958332', '-1.080278'),
  ('52.192001', '-2.220000'),
@@ -199,6 +177,23 @@ Latitude_Longitude =[
  ('51.509865', '-0.118092'),
  ('51.568535', '-1.772232')]
 
+
+### ---- globle functions for havester classes --- ###
+
+def check_location(location):
+    if not location:
+        return None
+    index = None
+    i = 0
+    words = location.split(", ")
+    for city in UK_City:
+        for word in words:
+            if word.lower() in city:
+                index = i
+        i += 1
+    return index
+
+
 def get_Latitude_Longitude(index):
     if index == None:
         return None
@@ -209,20 +204,8 @@ def get_Latitude_Longitude(index):
 def analyze_sentiment(tweet):
     analysis = TextBlob(tweet)
     return analysis.sentiment.polarity
-    #if analysis.sentiment.polarity > 0:
-    #    return 1
-    #elif analysis.sentiment.polarity == 0:
-    #    return 0
-    #else:
-    #    return -1
-    
-    
-#analyzer = SentimentIntensityAnalyzer()
-#score = analyzer.polarity_scores(text)['compound']
 
-#def analyze_sentiment_va(tweet):
-#    return analyzer.polarity_scores(tweet)['compound']
-
+## sum a list of sentiments: 1 for postive, -1 for negative, 0 for ingore
 def sum_s (sentiments):
     s = sum(sentiments)
     if s > 0:
@@ -231,7 +214,6 @@ def sum_s (sentiments):
         return -1
     return s
     
-
 def get_quantity(result):
     q = 0
     for r in result:
@@ -249,7 +231,6 @@ def get_sentiments(ID, api):
     tmpTweets = tweepy.Cursor(api.user_timeline, id=ID, tweet_mode='extended').items()
     key = True
     year = 2019
-    
 
     for tweet in tmpTweets:
         
@@ -310,8 +291,18 @@ def get_sentiments(ID, api):
 
     return result
 
+## class ##
+
+## to store an api
+class tweet_api():
+    
+    def __init__(self, consumer_key, consumer_secret, access_token, access_token_secret):
+        self.auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+        self.auth.set_access_token(access_token, access_token_secret)
+        self.api = tweepy.API(self.auth, wait_on_rate_limit=True)
 
 
+## class for control couchDB##
 class MyCouchDB():
     def __init__(self, name):
         self.couchserver = couchdb.Server()
@@ -362,6 +353,7 @@ class MyCouchDB():
     
 
 
+## stream linster
 class MyStreamListener(StreamListener):
     
     def __init__(self, couch, api):
@@ -442,7 +434,22 @@ class MyStreamListener(StreamListener):
             print("OVER RATE_LIMIT: take 100 seconds rest")
         print(status)
 
+## a method used to start and maintain stream listner
+def startStream(couch, api):
 
+    while True:
+        try:
+            myStreamListener = MyStreamListener(couch, api)
+            myStream = tweepy.Stream(auth = api.auth, listener=myStreamListener)
+            #myStream.filter(locations = GEOBOX_BHAM )
+            myStream.filter(track=['#brexit'])
+        except BaseException as e:
+            print("NOTIFICATION: !!!! ERROR: %s" % str(e))
+
+        print("sleep for 600 seconds")
+        time.sleep(600)
+        
+## use twitter client to fetch followers
 
 class twitter_client():
 
@@ -535,26 +542,14 @@ class twitter_client():
             self.get_followers_inUK(user)
             
             
-def startStream(couch, api):
 
-    while True:
-        try:
-            myStreamListener = MyStreamListener(couch, api)
-            myStream = tweepy.Stream(auth = api.auth, listener=myStreamListener)
-            #myStream.filter(locations = GEOBOX_BHAM )
-            myStream.filter(track=['#brexit'])
-        except BaseException as e:
-            print("NOTIFICATION: !!!! ERROR: %s" % str(e))
-
-        print("sleep for 600 seconds")
-        time.sleep(600)
 
 if __name__ == "__main__":
 
-    consumer_key = "hiden"
-    consumer_secret = "hiden"
-    access_token = "hiden-hiden"
-    access_token_secret = "hiden"
+    ck0 = "hiden"
+    cs0 = "hiden"
+    at0 = "hiden-hiden"
+    as0 = "hiden"
 
     ck1 = 'hiden'
     cs1 = 'hiden'
@@ -572,7 +567,7 @@ if __name__ == "__main__":
     at3 = 'hiden-Ttxz0zua58zI9EIAAVEuXgmX6c0m2F'
     as3 = 'hiden'
 
-    api0 = tweet_api(consumer_key, consumer_secret, access_token, access_token_secret).api
+    api0 = tweet_api(ck0,cs0,at0,as0).api
     api1 = tweet_api(ck1,cs1,at1,as1).api
     api2 = tweet_api(ck2,cs2,at2,as2).api
     api3 = tweet_api(ck3,cs3,at3,as3).api
@@ -582,11 +577,12 @@ if __name__ == "__main__":
 
     CP = ["theresa_may", "BorisJohnson", "David_Cameron"]    #conservative party
     LP = ["jeremycorbyn" ]   #Labour Party
-    LDP = ["joswinson", "LibDems","vincecable", "David_Cameron"]  #Liberal Democrat Party
+    LDP = ["joswinson", "vincecable" ]  #Liberal Democrat Party
 
     tc_CP = twitter_client(CP, couch, api1)
     tc_LP = twitter_client(LP, couch, api2)
     tc_LDP = twitter_client(LDP, couch, api3)
+    
     print("---step 2---")
     t0 = threading.Thread(target = startStream, args= [couch, api0], daemon=True)
     t1 = threading.Thread(target = tc_CP.start_fetch, daemon=True)
@@ -602,7 +598,7 @@ if __name__ == "__main__":
     t1.join()
     t2.join()
     t3.join()
-    print("---step 3---")
+
 
 
 
